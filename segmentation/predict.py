@@ -104,14 +104,15 @@ def predict(model, input_path, output_path, colors=class_colors):
 	lbl_pred = lbl_pred.reshape(model_height, model_width)
 
 	seg_img = convert_seg_gray_to_color(lbl_pred, n_classes, colors=colors)
+	seg_gray= lbl_pred.astype('uint8')
 
 	if model_width != ori_width or model_height != ori_height:
-		seg_img = cv2.resize(seg_img, (ori_width, ori_height), interpolation=cv2.INTER_NEAREST)
+		seg_img = cv2.resize(seg_img , (ori_width, ori_height), interpolation=cv2.INTER_NEAREST)
+		seg_gray= cv2.resize(seg_gray, (ori_width, ori_height), interpolation=cv2.INTER_NEAREST)
 
 	if not exist(parent(output_path)):
 		mkdir(parent(output_path))
 
 	cv2.imwrite(output_path, seg_img)
-	seg_img_gray = cv2.cvtColor(seg_img, cv2.COLOR_BGR2GRAY)           # convert to gray
-	cv2.imwrite(output_path.replace('.png','_gray.png'), seg_img_gray) # write gray file
+	cv2.imwrite(output_path.replace('.png','_gray.png'), seg_gray)
 	return score
