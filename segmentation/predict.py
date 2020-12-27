@@ -102,7 +102,7 @@ def predict(model, input_path, output_path, colors=class_colors):
 	lbl_pred = lbl_pred.transpose((1, 2, 0))
 	n_classes = np.max(lbl_pred)
 	lbl_pred = lbl_pred.reshape(model_height, model_width)
-	print(type(lbl_pred)
+	print(type(lbl_pred))
 	print(lbl_pred.shape)
 	print(lbl_pred)
 	seg_img = convert_seg_gray_to_color(lbl_pred, n_classes, colors=colors)
