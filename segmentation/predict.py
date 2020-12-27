@@ -56,7 +56,7 @@ def convert_seg_gray_to_color(input, n_classes, output_path=None, colors=class_c
 		seg_img[:, :, 0] += ((seg_arr) * colors[c][0]).astype('uint8')
 		seg_img[:, :, 1] += ((seg_arr) * colors[c][1]).astype('uint8')
 		seg_img[:, :, 2] += ((seg_arr) * colors[c][2]).astype('uint8')
-
+	
 	if output_path:
 		cv2.imwrite(output_path, seg_img)
 	else:
@@ -102,9 +102,7 @@ def predict(model, input_path, output_path, colors=class_colors):
 	lbl_pred = lbl_pred.transpose((1, 2, 0))
 	n_classes = np.max(lbl_pred)
 	lbl_pred = lbl_pred.reshape(model_height, model_width)
-	print(type(lbl_pred))
-	print(lbl_pred.shape)
-	print(lbl_pred)
+
 	seg_img = convert_seg_gray_to_color(lbl_pred, n_classes, colors=colors)
 
 	if model_width != ori_width or model_height != ori_height:
@@ -114,6 +112,6 @@ def predict(model, input_path, output_path, colors=class_colors):
 		mkdir(parent(output_path))
 
 	cv2.imwrite(output_path, seg_img)
-	cv2.imwrite(output_path.replace('.png','_gray.png'), lbl_pred)
-
+	seg_img_gray = cv2.cvtColor(seg_img, cv2.COLOR_BGR2GRAY)           # convert to gray
+	cv2.imwrite(output_path.replace('.png','_gray.png'), seg_img_gray) # write gray file
 	return score
