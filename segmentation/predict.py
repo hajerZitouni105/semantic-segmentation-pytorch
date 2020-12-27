@@ -50,17 +50,20 @@ def convert_seg_gray_to_color(input, n_classes, output_path=None, colors=class_c
 	width = seg.shape[1]
 
 	seg_img = np.zeros((height, width, 3))
+	seg_gray= np.zeros((height, width, 2))
 
 	for c in range(n_classes):
 		seg_arr = seg[:, :] == c
 		seg_img[:, :, 0] += ((seg_arr) * colors[c][0]).astype('uint8')
 		seg_img[:, :, 1] += ((seg_arr) * colors[c][1]).astype('uint8')
 		seg_img[:, :, 2] += ((seg_arr) * colors[c][2]).astype('uint8')
+		seg_img[:, :, 0] += (seg_arr).astype('uint8')
+		seg_img[:, :, 1] += (seg_arr).astype('uint8')		
 	
 	if output_path:
-		cv2.imwrite(output_path, seg_img)
+		cv2.imwrite(output_path, seg_img)		
 	else:
-		return seg_img
+		return seg_img, seg_gray
 
 def predict(model, input_path, output_path, colors=class_colors):
 	"""
@@ -103,8 +106,7 @@ def predict(model, input_path, output_path, colors=class_colors):
 	n_classes = np.max(lbl_pred)
 	lbl_pred = lbl_pred.reshape(model_height, model_width)
 
-	seg_img = convert_seg_gray_to_color(lbl_pred, n_classes, colors=colors)
-	seg_gray= lbl_pred.astype('uint8')
+	seg_img, seg_gray = convert_seg_gray_to_color(lbl_pred, n_classes, colors=colors)
 
 	if model_width != ori_width or model_height != ori_height:
 		seg_img = cv2.resize(seg_img , (ori_width, ori_height), interpolation=cv2.INTER_NEAREST)
