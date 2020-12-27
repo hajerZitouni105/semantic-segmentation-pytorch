@@ -115,5 +115,5 @@ def predict(model, input_path, output_path, colors=class_colors):
 		mkdir(parent(output_path))
 
 	cv2.imwrite(output_path, seg_img)
-	cv2.imwrite(output_path.replace('.png','_gray.png'), seg_gray)
+	cv2.imwrite(output_path.replace('.png','_gray.png'), cv2.cvtColor(seg_gray,cv2.COLOR_BGR2RGB))
 	return score
