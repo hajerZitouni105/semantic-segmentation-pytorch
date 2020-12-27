@@ -73,7 +73,7 @@ def predict(model, input_path, output_path, colors=class_colors):
 	:return: model result.
 	"""
 	model.eval()
-        print(cv2.IMREAD_COLOR)
+	print(cv2.IMREAD_COLOR)
 	img = cv2.imread(input_path, flags=cv2.IMREAD_COLOR)
 	print(img.shape)
 	ori_height = img.shape[0]
