@@ -50,15 +50,14 @@ def convert_seg_gray_to_color(input, n_classes, output_path=None, colors=class_c
 	width = seg.shape[1]
 
 	seg_img = np.zeros((height, width, 3))
-	seg_gray= np.zeros((height, width, 2))
+	seg_gray= np.zeros((height, width))
 
 	for c in range(n_classes):
 		seg_arr = seg[:, :] == c
 		seg_img[:, :, 0] += ((seg_arr) * colors[c][0]).astype('uint8')
 		seg_img[:, :, 1] += ((seg_arr) * colors[c][1]).astype('uint8')
 		seg_img[:, :, 2] += ((seg_arr) * colors[c][2]).astype('uint8')
-		seg_img[:, :, 0] += (seg_arr).astype('uint8')
-		seg_img[:, :, 1] += (seg_arr).astype('uint8')		
+		seg_img[:, :] += (seg_arr).astype('uint8')		
 	
 	if output_path:
 		cv2.imwrite(output_path, seg_img)		
