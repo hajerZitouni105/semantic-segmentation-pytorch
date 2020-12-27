@@ -74,7 +74,7 @@ def predict(model, input_path, output_path, colors=class_colors):
 	"""
 	model.eval()
 	img = cv2.imread(input_path, flags=cv2.IMREAD_COLOR)
-	print(img.shape)
+
 	ori_height = img.shape[0]
 	ori_width = img.shape[1]
 
