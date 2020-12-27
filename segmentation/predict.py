@@ -78,8 +78,10 @@ def predict(model, input_path, output_path, colors=class_colors):
 	ori_height = img.shape[0]
 	ori_width = img.shape[1]
 
-	model_width = model.img_width
-	model_height = model.img_height
+	#model_width = model.img_width
+	#model_height = model.img_height
+	model_width = 224
+	model_height = 224
 
 	if model_width != ori_width or model_height != ori_height:
 		img = cv2.resize(img, (model_width, model_height), interpolation=cv2.INTER_NEAREST)
