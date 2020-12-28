@@ -110,10 +110,11 @@ def predict(model, input_path, output_path, colors=class_colors):
 	if model_width != ori_width or model_height != ori_height:
 		seg_img = cv2.resize(seg_img , (ori_width, ori_height), interpolation=cv2.INTER_NEAREST)
 		seg_gray= cv2.resize(seg_gray, (ori_width, ori_height), interpolation=cv2.INTER_NEAREST)
+		seg_gray= cv2.cvtColor(seg_gray, cv2.COLOR_GRAY2RGB)
 
 	if not exist(parent(output_path)):
 		mkdir(parent(output_path))
 
 	cv2.imwrite(output_path, seg_img)
-	cv2.imwrite(output_path.replace('.png','_gray.png'), cv2.cvtColor(seg_gray,cv2.COLOR_BGR2RGB))
+	cv2.imwrite(output_path.replace('.png','_gray.png'), seg_gray)
 	return score
