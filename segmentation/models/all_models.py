@@ -5,6 +5,7 @@ from .fcn16 import *
 from .fcn32 import *
 from .unet import *
 from .pspnet import *
+from .fast_scnn import *
 
 model_from_name = {}
 
@@ -61,7 +62,7 @@ model_from_name["pspnet_resnet50"] = pspnet_resnet50
 model_from_name["pspnet_resnet101"] = pspnet_resnet101
 model_from_name["pspnet_resnet152"] = pspnet_resnet152
 model_from_name["pspnet_mobilenet_v2"] = pspnet_mobilenet_v2
-
+model_from_name["fast_scnn"] = fast_scnn
 
 
 
