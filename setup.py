@@ -30,7 +30,7 @@ setup(name="seg_torch",
       install_requires=[
             "torch>=1.5.0",
             "torchvision>=0.5.0",
-            "tensorboardX>=2.0"
+            "tensorboardX>=2.0",
             "opencv-python",
             "tqdm"],
       extras_require={
